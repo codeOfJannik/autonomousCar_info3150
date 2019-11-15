@@ -25,7 +25,6 @@ class Motor:
         gpio.output(self.__MOTOR2A, True)
         gpio.output(self.__MOTOR2B, False)
 
-    # Todo: Try if right and left is correct, if not change method names
     def turnRight(self):
         gpio.output(self.__MOTOR1A, True)
         gpio.output(self.__MOTOR1B, False)
@@ -39,10 +38,10 @@ class Motor:
         gpio.output(self.__MOTOR2B, True)
 
     def stop(self):
-        gpio.output(self.MOTOR1A, False)
-        gpio.output(self.MOTOR1B, False)
-        gpio.output(self.MOTOR2A, False)
-        gpio.output(self.MOTOR2B, False)
+        gpio.output(self.__MOTOR1A, False)
+        gpio.output(self.__MOTOR1B, False)
+        gpio.output(self.__MOTOR2A, False)
+        gpio.output(self.__MOTOR2B, False)
 
     def __del__(self):
         gpio.cleanup()

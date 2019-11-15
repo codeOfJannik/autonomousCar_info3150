@@ -3,34 +3,34 @@ import time
 
 motor = Motor()
 
-print "start going forward"
+print ("start going forward")
 motor.forward()
 time.sleep(2)
 motor.stop()
-print "end going forward"
+print ("end going forward")
 
 time.sleep(1)
 
-print "start going backward"
+print ("start going backward")
 motor.backward()
 time.sleep(2)
 motor.stop()
-print "end going backward"
+print ("end going backward")
 
 time.sleep(1)
 
-print "start turning left"
+print ("start turning left")
 motor.turnLeft()
 time.sleep(2)
 motor.stop()
-print "end turning left"
+print ("end turning left")
 
 time.sleep(1)
 
-print "start turning right"
+print ("start turning right")
 motor.turnRight()
 time.sleep(2)
 motor.stop()
-print "end turning right"
+print ("end turning right")
 
 motor.__del__()
