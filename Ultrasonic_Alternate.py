@@ -9,18 +9,6 @@ input_ports = [17]                                                      # Define
 trig=4                                                                  # set trigger port
 echo=17                                                                 # set echo port
 
-# HC-SR04 ULTRASONIC DISTANCE SENSOR                                *
-# *******************************************************************
-# * Unfortunately, the HC-SR04 suffers from some inherent built-in  *
-# * flaws, particularly if the reflected sound waves bounce off     *
-# * objects at a distance and/or at oblique angles.  This results   *
-# * in very erratic signals being generated on the 'Echo' pin.      *
-# * This function filters out most erratic events. If a valid       *
-# * measurement was detected, the distance is given in cm units.    *
-# * If a measurement error was detected, a negative error code is   *
-# * returned.                                                       *
-# *******************************************************************
-
 def get_distance():
     if GPIO.input (echo):                                               # If the 'Echo' pin is already high
         return (-1)                                                     # then exit with error code
