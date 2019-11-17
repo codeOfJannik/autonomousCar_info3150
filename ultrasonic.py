@@ -1,35 +1,60 @@
-import RPi.GPIO as GPIO
 import time
+import RPi.GPIO as GPIO
 
+# Use BCM GPIO references
+# instead of physical pin numbers
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
-TRIG = 23 #pin 16
-ECHO = 24 #pin 18
+# Define GPIO to use on Pi
+GPIO_TRIGGER = 23 #Pin 16
+GPIO_ECHO    = 24 #Pin 18
 
-print "Measuring Distance"
 
-GPIO.setup(TRIG,GPIO.OUT)
 
-GPIO.setup(ECHO,GPIO.IN)
+# Set pins as output and input
+GPIO.setup(GPIO_TRIGGER,GPIO.OUT)  # Trigger
+GPIO.setup(GPIO_ECHO,GPIO.IN)      # Echo
 
-GPIO.output(TRIG, False)
-print "Waiting For Sensor To Settle" #Sensor needs a bit of time to settle before usage
-time.sleep(2)
+# Set trigger to False (Low)
+GPIO.output(GPIO_TRIGGER, False)
 
-GPIO.output(TRIG, True)
+print "Ultrasonic Measurement"
+
+# Allow module to settle
+time.sleep(0.5)
+
+# Send 10us pulse to trigger
+GPIO.output(GPIO_TRIGGER, True)
 time.sleep(0.00001)
-GPIO.output(TRIG, False)
+GPIO.output(GPIO_TRIGGER, False)
+start = time.time()
 
-while GPIO.input(ECHO)==0: #A low signal is given when no objects are detected
- pulse_start = time.time() 
- 
- while GPIO.input(ECHO)==1: #A high frequency is sent when an object is detected
- pulse_end = time.time()     
- pulse_duration = pulse_end - pulse_start #Measuring Distance
- 
- distance = pulse_duration x 17150
- distance = round(distance, 2)
- print "Distance:",distance,"cm" #Prints the distance of the object
- GPIO.cleanup()
+while GPIO.input(GPIO_ECHO)==0:
+  start = time.time()
+
+while GPIO.input(GPIO_ECHO)==1:
+  stop = time.time()
+
+# Calculate pulse length
+elapsed = stop-start
+
+# Distance pulse travelled in that time is time
+# multiplied by the speed of sound (cm/s)
+distancet = elapsed * 34300
+
+# That was the distance there and back so halve the value
+distance = distancet / 2
+
+print "Distance :", distance
+
+print "Elaspsed time :", elapsed
+
+print "Total distance :", distancet
+
+
+# Reset GPIO settings
+GPIO.cleanup()
+
  
  
