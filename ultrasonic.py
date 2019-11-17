@@ -7,8 +7,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 # Define GPIO to use on Pi
-GPIO_TRIGGER = 23
-GPIO_ECHO    = 24
+GPIO_TRIGGER = 23 #Pin 16
+GPIO_ECHO    = 24 #Pin 18
 
 
 
