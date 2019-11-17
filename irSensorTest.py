@@ -17,5 +17,3 @@ try:
 except KeyboardInterrupt:
     print("Quit")
     gpio.cleanup()
-
-
