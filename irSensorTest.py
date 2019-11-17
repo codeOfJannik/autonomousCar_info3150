@@ -1,5 +1,5 @@
-from infraredSensor import InfraredSensors
-from RPi.GPIO import gpio
+from infraredSensor import InfraredSensor
+import RPi.GPIO as gpio
 import time
 
 irSensorPinNumbers = [12, 16, 20, 21]
@@ -12,7 +12,10 @@ try:
     print("start infrared sensor test")
     while True:
         for sensor in sensors:
-            print("sensor at pin " + str(sensor.SENSORPIN) + " blocked by obstacle")
+            if sensor.is_blocked_by_obstacle():
+                print("sensor at pin " + str(sensor.SENSORPIN) + " blocked by obstacle")
+            else:
+                print("sensor at pin " + str(sensor.SENSORPIN) + " free")
         time.sleep(2)
 except KeyboardInterrupt:
     print("Quit")
