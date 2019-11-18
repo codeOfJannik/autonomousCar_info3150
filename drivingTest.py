@@ -36,6 +36,7 @@ def setupIMU():
     poll_interval = imu.IMUGetPollInterval()
     print("Recommended Poll Interval: %dmS\n" % poll_interval)
 
+setupIMU()
 motor = Motor()
 
 while True:
