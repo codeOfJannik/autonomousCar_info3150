@@ -42,17 +42,16 @@ motor = Motor()
 
 while True:
     if imu.IMURead():
-        break
+        timeout = time.time() + 2
+        motor.forward()
+        data = imu.getIMUData()
+        print(data["accel"])
+        if time.time() > timeout:
+            motor.stop()
+            break
+        time.sleep(0.2)
 
-timeout = time.time() + 2
-motor.forward()
-while True:
-    data = imu.getIMUData()
-    print(data["accel"])
-    if time.time() > timeout:
-        motor.stop()
-        break
-    time.sleep(0.2)
+
     """
     fusionPose = data["fusionPose"]
     print("r: %f p: %f y: %f" % (math.degrees(fusionPose[0]), 
