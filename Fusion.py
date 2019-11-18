@@ -38,7 +38,6 @@ while True:
     if imu.IMURead():
         data = imu.getIMUData()
         print(data["accel"])
-        
         """
         fusionPose = data["fusionPose"]
         print("r: %f p: %f y: %f" % (math.degrees(fusionPose[0]), 
