@@ -40,9 +40,9 @@ def setupIMU():
 imu = setupIMU()
 motor = Motor()
 
-while True:
-    if imu.IMURead():
-        break
+#while True:
+#    if imu.IMURead():
+#        break
 
 timeout = time.time() + 2
 motor.forward()
