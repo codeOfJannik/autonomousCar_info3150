@@ -44,6 +44,7 @@ while True:
         math.degrees(fusionPose[1]), math.degrees(fusionPose[2])))
         break
         """
+        break
     # x, y, z = imu.getFusionData()
     # print("%f %f %f" % (x,y,z))
     time.sleep(poll_interval*1.0/1000.0)
