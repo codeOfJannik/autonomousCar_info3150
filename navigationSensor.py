@@ -11,14 +11,14 @@ class NavigationSensor:
     __SETTINGS_FILE = "RTIMULib"
 
     def __init__(self):
-        print("Using settings file " + SETTINGS_FILE + ".ini")
-        if not os.path.exists(SETTINGS_FILE + ".ini"):
+        print("Using settings file " + self.__SETTINGS_FILE + ".ini")
+        if not os.path.exists(self.__SETTINGS_FILE + ".ini"):
             print("Settings file does not exist, will be created")
 
-        s = RTIMU.Settings(SETTINGS_FILE)
+        s = RTIMU.Settings(self.__SETTINGS_FILE)
         self.imu = RTIMU.RTIMU(s)
 
-        print("IMU Name: " + imu.IMUName())
+        print("IMU Name: " + self.imu.IMUName())
 
         if not self.imu.IMUInit():
             print("IMU Init Failed")
@@ -37,8 +37,8 @@ class NavigationSensor:
 
     def get_compass_value(self):
         while True:
-            if imu.IMURead():
-                data = imu.getIMUData()
+            if self.imu.IMURead():
+                data = self.imu.getIMUData()
                 fusionPose = data["fusionPose"]
                 bearTo = math.degrees(fusionPose[2])
                 time.sleep(self.poll_interval*1.0/1000.0)
