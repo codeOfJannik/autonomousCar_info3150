@@ -3,11 +3,11 @@ import RPi.GPIO as GPIO                                                 # Import
 import time
 
 GPIO.setmode (GPIO.BCM)                                                 # Set the GPIO mode to BCM numbering
-output_ports = [4]                                                      # Define the GPIO output port numbers
-input_ports = [17]                                                      # Define the GPIO input port numbers
+output_ports = [19]                                                      # Define the GPIO output port numbers
+input_ports = [26]                                                      # Define the GPIO input port numbers
 
-trig=4                                                                  # set trigger port
-echo=17                                                                 # set echo port
+trig=19                                                                  # set trigger port
+echo=26                                                                 # set echo port
 
 def get_distance():
     if GPIO.input (echo):                                               # If the 'Echo' pin is already high
