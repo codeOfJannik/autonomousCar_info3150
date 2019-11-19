@@ -35,11 +35,17 @@ class NavigationSensor:
 
         self.poll_interval = self.imu.IMUGetPollInterval()
 
+    def __convert_fusion_value_to_positive_bearing(self, fusionValue):
+        if fusionValue < 0:
+            return 360 + fusionValue
+        return fusionValue
+
     def get_compass_value(self):
         while True:
             if self.imu.IMURead():
                 data = self.imu.getIMUData()
                 fusionPose = data["fusionPose"]
                 bearTo = math.degrees(fusionPose[2])
-                time.sleep(self.poll_interval*1.0/1000.0)
-                return bearTo
+                return self.__convert_fusion_value_to_positive_bearing(bearTo)
+            time.sleep(self.poll_interval * 1.0 / 1000.0)
+
