@@ -5,10 +5,7 @@ import time
 compass = Compass()
 
 try:
-    while True:
-        bearTo = compass.get_heading()
-        print(str(heading))
-        time.sleep(0.5)
+   compass.get_heading()
 except KeyboardInterrupt:
     print("Quit")
 
