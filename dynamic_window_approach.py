@@ -12,6 +12,12 @@ from enum import Enum
 import matplotlib.pyplot as plt
 import numpy as np
 
+import motor
+import navigationSensor
+import infraredSensor
+import Ultrasonic_Testing
+
+
 show_animation = True
 
 
@@ -58,8 +64,8 @@ class Config:
         self.robot_radius = 1.0  # [m] for collision check
 
         # if robot_type == RobotType.rectangle
-        self.robot_width = 0.5  # [m] for collision check
-        self.robot_length = 1.2  # [m] for collision check
+        self.robot_width = 0.1  # [m] for collision check
+        self.robot_length = 0.25  # [m] for collision check
 
     @property
     def robot_type(self):
