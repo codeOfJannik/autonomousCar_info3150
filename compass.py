@@ -15,7 +15,7 @@ class Compass:
     def __init__(self):
 
 
-        s = RTIMU.Settings(SETTINGS_FILE)
+        s = RTIMU.Settings(self.SETTINGS_FILE)
         self.imu = RTIMU.RTIMU(s)
 
         # offsets
@@ -46,7 +46,7 @@ class Compass:
         self.imu.setAccelEnable(True)
         self.imu.setCompassEnable(True)
 
-        self.poll_interval = imu.IMUGetPollInterval()
+        self.poll_interval = self.imu.IMUGetPollInterval()
 
         # data variables
         self.roll = 0.0
@@ -135,6 +135,6 @@ class Compass:
                     if self.heading > 360:
                         self.heading = self.heading - 360
 
-                    return self.heading
+                    print(str(self.heading))
 
                 time.sleep(self.poll_interval * 1.0 / 1000.0)
