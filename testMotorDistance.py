@@ -9,5 +9,4 @@ time.sleep(1)
 motor.stop()
 print ("end going forward")
 
-
 motor.__del__()

@@ -1,25 +1,22 @@
-from compassClass import Compass
+from compassScript import compass_script
 from motor import Motor
 import time
 
-compass = Compass()
-
 try:
-   compass.start_measurment()
    while True:
-       print(str(compass.heading))
+       print(str(compass_script()))
+       time.sleep(2)
 except KeyboardInterrupt:
     print("Quit")
 
 def driving_compass_test():
-    compass = Compass()
     motor = Motor()
 
     motor.forward()
     time.sleep(1)
     motor.stop()
 
-    currentDirection = compass.get_heading()
+    currentDirection = compass_script()
     print("current direction: " + str(currentDirection))
     finalDirection = currentDirection + 90 if currentDirection + 90 < 360 else currentDirection + 90 - 360
     print("final direction: " + str(currentDirection))
@@ -27,13 +24,13 @@ def driving_compass_test():
     try:
         motor.turnRight()
         while True:
-            currentDirection = compass.get_heading()
+            currentDirection = compass_script()
             print("current direction: " + str(currentDirection))
 
             if currentDirection >= finalDirection:
                 motor.stop()
                 motor.__del__()
-                currentDirection = compass.get_heading()
+                currentDirection = compass_script()
                 print("current direction: " + str(currentDirection))
                 break
     except KeyboardInterrupt:
