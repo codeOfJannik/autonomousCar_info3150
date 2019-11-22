@@ -85,7 +85,7 @@ class Compass:
                 if self.heading > 360:
                     self.heading = self.heading - 360
 
-            time.sleep(poll_interval * 1.0 / 1000.0)
+            time.sleep(self.poll_interval * 1.0 / 1000.0)
 
     def start_measurment(self):
         start_new_thread(self.measurment_function())
