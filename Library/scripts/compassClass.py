@@ -12,8 +12,15 @@ import os
 
 class Compass:
 
+    IMU_IP = "127.0.0.2"
+    IMU_PORT = 5005
+
+    MON_IP = "127.0.0.5"
+    MON_PORT = 5005
+
     __SETTINGS_FILE = "RTIMULib"
 
+    # data variables
     roll = 0.0
     pitch = 0.0
     yaw = 0.0
@@ -21,8 +28,13 @@ class Compass:
     rollrate = 0.0
     pitchrate = 0.0
     yawrate = 0.0
-    magnetic_deviation = 0.0
 
+    # magnetic deviation
+    # f = open('mag', 'r')
+    magnetic_deviation = 0.0
+    # f.close()
+
+    # dampening variables
     t_one = 0
     t_three = 0
     roll_total = 0.0
@@ -31,6 +43,13 @@ class Compass:
     heading_sin_total = 0.0
     heading_cos_run = [0] * 30
     heading_sin_run = [0] * 30
+
+    # timers
+    t_print = time.time()
+    t_damp = time.time()
+    t_fail = time.time()
+    t_fail_timer = 0.0
+    t_shutdown = 0
 
     def __init__(self):
         s = RTIMU.Settings(self.__SETTINGS_FILE)
@@ -45,6 +64,8 @@ class Compass:
 
     def measurment_function(self):
         while True:
+
+            self.hack = time.time()
 
             if self.imu.IMURead():
                 data = self.imu.getIMUData()
@@ -86,7 +107,6 @@ class Compass:
                     self.heading = self.heading - 360
 		print(str(heading))
             time.sleep(self.poll_interval * 1.0 / 1000.0)
-
     def start_measurment(self):
         start_new_thread(self.measurment_function())
 
