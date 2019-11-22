@@ -1,11 +1,13 @@
-from compass import Compass
+from compassClass import Compass
 from motor import Motor
 import time
 
 compass = Compass()
 
 try:
-   compass.get_heading()
+   compass.start_measurment()
+   while True:
+       print(str(compass.heading))
 except KeyboardInterrupt:
     print("Quit")
 
