@@ -9,7 +9,7 @@ import operator
 import socket
 import os
 
-def compass_script():
+def get_heading():
     IMU_IP = "127.0.0.2"
     IMU_PORT = 5005
 
