@@ -13,6 +13,7 @@ class Motor:
 
     def __init__(self):
         gpio.setmode(gpio.BCM)
+        gpio.setwarnings(False)
         gpio.setup(self.__MOTOR1A, gpio.OUT)
         gpio.setup(self.__MOTOR1B, gpio.OUT)
         gpio.setup(self.__MOTOR2A, gpio.OUT)
