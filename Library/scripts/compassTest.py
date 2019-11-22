@@ -5,7 +5,7 @@ import time
 compass = Compass()
 
 try:
-   compass.start_measurment()
+   compass.measurment_function()
    while True:
        print(str(compass.heading))
 except KeyboardInterrupt:

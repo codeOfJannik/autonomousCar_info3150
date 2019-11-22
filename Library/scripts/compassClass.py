@@ -84,7 +84,7 @@ class Compass:
                     self.heading = self.heading + 360
                 if self.heading > 360:
                     self.heading = self.heading - 360
-
+		print(str(heading))
             time.sleep(self.poll_interval * 1.0 / 1000.0)
 
     def start_measurment(self):
