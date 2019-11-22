@@ -1,5 +1,4 @@
 import RPi.GPIO as gpio
-import time
 
 class Motor:
     __MOTOR1A = 17
