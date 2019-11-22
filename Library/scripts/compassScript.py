@@ -1,5 +1,4 @@
 import sys, getopt
-from motor import Motor
 
 sys.path.append('.')
 import RTIMU
@@ -21,7 +20,6 @@ def compass_script():
 
     s = RTIMU.Settings(SETTINGS_FILE)
     imu = RTIMU.RTIMU(s)
-    motor = Motor()
 
     # offsets
     yawoff = 0.0
