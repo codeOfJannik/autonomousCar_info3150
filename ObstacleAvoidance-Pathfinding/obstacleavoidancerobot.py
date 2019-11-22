@@ -2,6 +2,12 @@
 import RPi.GPIO as GPIO
 import time
 
+#Needed to import file located in different folder???
+import sys
+sys.path.insert(1, '../Library/scripts')
+import motor
+import imu
+
 # Define GPIO For Driver motors
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.OUT)
