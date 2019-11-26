@@ -4,15 +4,14 @@ import time
 
 #Needed to import file located in different folder???
 import sys
-sys.path.insert(1, '../../Library/scripts')
+sys.path.insert(1, '../)
 
-from RTIMUScripts import get_heading
+#from RTIMUScripts import get_heading
 from motor import Motor
 from infraredSensor import InfraredSensor
 from ultrasonic import Ultrasonic
 
 motor = Motor();
-FRONT_SENSOR_TRIGGER = Ultrasonic()
 FRONT_SENSOR_TRIGGER = 19
 FRONT_SENSOR_ECHO = 26
 leftSensor = InfraredSensor(21)
