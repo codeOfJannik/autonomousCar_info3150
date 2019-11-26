@@ -29,5 +29,8 @@ class Ultrasonic:
 
         return round(distance, 2)
 
+    def cleanup(self):
+        gpio.cleanup()
+
     def __del__(self):
         gpio.cleanup()

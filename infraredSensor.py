@@ -11,5 +11,8 @@ class InfraredSensor:
 	def is_blocked_by_obstacle(self):
 		return not gpio.input(self.SENSORPIN)
 
+	def cleanup(self):
+		gpio.cleanup()
+
 	def __del__(self):
 		gpio.cleanup()
