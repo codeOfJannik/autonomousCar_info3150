@@ -22,7 +22,7 @@ def driveBackwards():
     motor.backward()
 
 def turnStarted():
-    while ultrasonicSensor.sense() < 15:
+    while not noObstacleAtFront():
         print("Obstacle in front, keep turning")
     print("no obstacle in front, stop turning")
     motor.stop()
