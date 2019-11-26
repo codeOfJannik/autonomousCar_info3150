@@ -31,5 +31,8 @@ class Ultrasonic:
 	print(distance)
         return distance
 
+    def cleanup(self):
+        gpio.cleanup()
+
     def __del__(self):
         gpio.cleanup()
