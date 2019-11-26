@@ -27,9 +27,9 @@ class Ultrasonic:
         duration = end - start
         distance = duration * 17150
 
-    distance = round(distance, 2)
-    print(distance)
-    return distance
+        distance = round(distance, 2)
+        print(distance)
+        return (distance)
 
     def cleanup(self):
         gpio.cleanup()
