@@ -53,7 +53,7 @@ def turnDegrees(degrees):
         motor.turnRight()
         while True:
             heading = get_heading()
-            print("Heading: " + heading)
+            print("Heading: " + str(heading))
 
             if heading > finalHeading:
                 motor.stop()
@@ -101,7 +101,7 @@ def driveForward():
 
 def startDriving():
     print("Start driving")
-    print("obstacle at the front: " + (noObstacleAtFront()))
+    print("obstacle at the front: " + str(noObstacleAtFront()))
     if noObstacleAtFront():
         driveForward()
     else:

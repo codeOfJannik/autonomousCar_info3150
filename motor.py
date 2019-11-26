@@ -42,15 +42,15 @@ class Motor:
         self.pwmMOTOR2A.ChangeDutyCycle(self.__DutyCycleB)
         self.pwmMOTOR2B.ChangeDutyCycle(self.__Stop)
 
-    def turnRight(self):
-        print("Start turning right")
+    def turnLeft(self):
+        print("Start turning left")
         self.pwmMOTOR1A.ChangeDutyCycle(self.__DutyCycleA)
         self.pwmMOTOR1B.ChangeDutyCycle(self.__Stop)
         self.pwmMOTOR2A.ChangeDutyCycle(self.__DutyCycleB)
         self.pwmMOTOR2B.ChangeDutyCycle(self.__Stop)
 
-    def turnLeft(self):
-        print("Start turning left")
+    def turnRight(self):
+        print("Start turning right")
         self.pwmMOTOR1A.ChangeDutyCycle(self.__Stop)
         self.pwmMOTOR1B.ChangeDutyCycle(self.__DutyCycleA)
         self.pwmMOTOR2A.ChangeDutyCycle(self.__Stop)
