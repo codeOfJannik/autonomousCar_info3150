@@ -147,8 +147,8 @@ def obstacleavoiddrive():
 
 def cleargpios():
     print ("clearing GPIO")
-    GPIO.output(FRONT_SENSOR_TRIGGER.__trig, False)
-    GPIO.output(FRONT_SENSOR_TRIGGER.__echo, False)
+    GPIO.output(FRONT_SENSOR_TRIGGER, False)
+    GPIO.output(FRONT_SENSOR_ECHO, False)
     # GPIO.output(23, False)
     # GPIO.output(24, False)
     # GPIO.output(16, False)
