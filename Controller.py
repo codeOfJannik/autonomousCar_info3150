@@ -43,7 +43,7 @@ def turnDegrees(degrees):
 
             if heading < finalHeading:
                 motor.stop()
-                return
+                break
     else:
         finalHeading = get_heading() + degrees
         normalizeDegrees(finalHeading)
@@ -57,7 +57,9 @@ def turnDegrees(degrees):
 
             if heading > finalHeading:
                 motor.stop()
-                return
+                break
+
+    startDriving()
 
 def noObstacleAtFront():
     return ultrasonicSensor.sense() > 10.01
@@ -108,8 +110,7 @@ def startDriving():
         check_sides()
 
 try:
-    while not car_stopped:
-        startDriving()
+    startDriving()
 except KeyboardInterrupt:
     car_stopped = True
     print ("Stopped by User")
