@@ -1,5 +1,4 @@
 import sys, getopt
-from motor import Motor
 
 sys.path.append('.')
 import RTIMU
@@ -10,7 +9,7 @@ import operator
 import socket
 import os
 
-def compass_script():
+def get_heading():
     IMU_IP = "127.0.0.2"
     IMU_PORT = 5005
 
@@ -21,7 +20,6 @@ def compass_script():
 
     s = RTIMU.Settings(SETTINGS_FILE)
     imu = RTIMU.RTIMU(s)
-    motor = Motor()
 
     # offsets
     yawoff = 0.0
