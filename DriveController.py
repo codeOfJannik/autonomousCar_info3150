@@ -16,16 +16,17 @@ ultrasonicSensor = Ultrasonic()
 components = [motor, right_ir_sensor, left_ir_sensor, right_front_ir_sensor, left_front_ir_sensor, ultrasonicSensor]
 
 def noObstacleAtFront():
-    return ultrasonicSensor.sense() > 10.01
+    return not left_front_ir_sensor.is_blocked_by_obstacle() and not right_front_ir_sensor.is_blocked_by_obstacle() and ultrasonicSensor.sense() > 10
 
 def driveBackwards():
     motor.backward()
 
 def turnStarted():
-    while ultrasonicSensor.sense() < 15:
+    while not noObstacleAtFront():
         print("Obstacle in front, keep turning")
     print("no obstacle in front, stop turning")
     motor.stop()
+    time.sleep(2)
     startDriving()
 
 def check_sides():
@@ -53,6 +54,7 @@ def check_for_FrontObstacle():
         if not noObstacleAtFront():
             print("obstacle in front detected")
             motor.stop()
+            time.sleep(2)
             check_sides()
 
 def driveForward():
@@ -70,7 +72,6 @@ def startDriving():
 try:
     startDriving()
 except KeyboardInterrupt:
-    car_stopped = True
     print ("Stopped by User")
     for component in components:
         del component
