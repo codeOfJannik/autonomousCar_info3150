@@ -16,7 +16,7 @@ ultrasonicSensor = Ultrasonic()
 components = [motor, right_ir_sensor, left_ir_sensor, right_front_ir_sensor, left_front_ir_sensor, ultrasonicSensor]
 
 def noObstacleAtFront():
-    return ultrasonicSensor.sense() > 15
+    return not left_front_ir_sensor.is_blocked_by_obstacle() and not right_front_ir_sensor.is_blocked_by_obstacle() and ultrasonicSensor.sense() > 10
 
 def driveBackwards():
     motor.backward()
@@ -70,7 +70,6 @@ def startDriving():
 try:
     startDriving()
 except KeyboardInterrupt:
-    car_stopped = True
     print ("Stopped by User")
     for component in components:
         del component
