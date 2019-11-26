@@ -29,7 +29,7 @@ class Ultrasonic:
 
     distance = round(distance, 2)
     print(distance)
-        return distance
+    return distance
 
     def cleanup(self):
         gpio.cleanup()
