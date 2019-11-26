@@ -4,7 +4,7 @@ import time
 
 #Needed to import file located in different folder???
 import sys
-sys.path.insert(1, '../)
+sys.path.insert(1, '../')
 
 #from RTIMUScripts import get_heading
 from motor import Motor
@@ -70,7 +70,7 @@ def frontobstacle():
     # Distance pulse travelled in that time is time
     # Multiplied by the speed of sound (cm/s)
     distance = elapsed * 34000 / 2  # distance of both directions so divide by 2
-    print "Front Distance : %.1f" % distance
+    print ("Front Distance : %.1f" % distance)
     return distance
 
 def rightobstacle():
@@ -146,7 +146,7 @@ def obstacleavoiddrive():
 
 
 def cleargpios():
-    print "clearing GPIO"
+    print ("clearing GPIO")
     GPIO.output(FRONT_SENSOR_TRIGGER.__trig, False)
     GPIO.output(FRONT_SENSOR_TRIGGER.__echo, False)
     # GPIO.output(23, False)
@@ -154,13 +154,13 @@ def cleargpios():
     # GPIO.output(16, False)
     # GPIO.output(33, False)
     # GPIO.output(38, False)
-    print "All GPIOs CLEARED"
+    print ("All GPIOs CLEARED")
 
 
 def main():
     # First clear GPIOs
     cleargpios()
-    print "start driving: "
+    print ("start driving: ")
     # Start obstacle avoid driving
     obstacleavoiddrive()
 
