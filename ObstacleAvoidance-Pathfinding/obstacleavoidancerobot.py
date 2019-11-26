@@ -4,7 +4,7 @@ import time
 
 #Needed to import file located in different folder???
 import sys
-sys.path.insert(1, '../Library/scripts')
+sys.path.insert(1, '../../Library/scripts')
 
 from RTIMUScripts import get_heading
 from motor import Motor
