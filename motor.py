@@ -8,9 +8,9 @@ class Motor:
 
     __Frequency = 20
     #change if car doesnt drive straight 
-    __DutyCycleA = 40
-    __DutyCycleB = 40
-    __DutyCycleT = 25
+    __DutyCycleA = 25
+    __DutyCycleB = 25
+    __DutyCycleT = 20
     __Stop = 0
 
     def __init__(self):

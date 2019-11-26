@@ -16,7 +16,7 @@ ultrasonicSensor = Ultrasonic()
 components = [motor, right_ir_sensor, left_ir_sensor, right_front_ir_sensor, left_front_ir_sensor, ultrasonicSensor]
 
 def noObstacleAtFront():
-    return ultrasonicSensor.sense() > 10.01
+    return ultrasonicSensor.sense() > 15
 
 def driveBackwards():
     motor.backward()

@@ -12,8 +12,7 @@ from infraredSensor import InfraredSensor
 from ultrasonic import Ultrasonic
 
 motor = Motor();
-FRONT_SENSOR_TRIGGER = 19
-FRONT_SENSOR_ECHO = 26
+frontSensor = Ultrasonic();
 leftSensor = InfraredSensor(21)
 rightSensor = InfraredSensor(20)
 
@@ -53,11 +52,11 @@ rightSensor = InfraredSensor(20)
 def frontobstacle():
 
     # Set trigger to False (Low)
-    GPIO.output(FRONT_SENSOR_TRIGGER, False)
+    frontSensor.GPIO.output(FRONT_SENSOR_TRIGGER, False)
     # Allow module to settle
     time.sleep(0.2)
     # Send 10us pulse to trigger
-    GPIO.output(FRONT_SENSOR_TRIGGER, True)
+    frontSensor.GPIO.output(FRONT_SENSOR_TRIGGER, True)
     time.sleep(0.00001)
     GPIO.output(FRONT_SENSOR_TRIGGER, False)
     start = time.time()
@@ -147,8 +146,8 @@ def obstacleavoiddrive():
 
 def cleargpios():
     print ("clearing GPIO")
-    GPIO.output(FRONT_SENSOR_TRIGGER, False)
-    GPIO.output(FRONT_SENSOR_ECHO, False)
+    #frontSensor.GPIO.output(FRONT_SENSOR_TRIGGER, False)
+    #frontSensor.GPIO.output(FRONT_SENSOR_ECHO, False)
     # GPIO.output(23, False)
     # GPIO.output(24, False)
     # GPIO.output(16, False)
