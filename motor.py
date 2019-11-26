@@ -7,10 +7,9 @@ class Motor:
     __MOTOR2B = 24
 
     __Frequency = 20
-    #change if car doesnt drive straight
-    __DutyCycleA = 25
-    __DutyCycleB = 25
-    __DutyCycleT = 20
+    #change if car doesnt drive straight 
+    __DutyCycleA = 40
+    __DutyCycleB = 40
     __Stop = 0
 
     def __init__(self):
@@ -41,17 +40,17 @@ class Motor:
         self.pwmMOTOR2A.ChangeDutyCycle(self.__DutyCycleB)
         self.pwmMOTOR2B.ChangeDutyCycle(self.__Stop)
 
-    def turnLeft(self):
-        self.pwmMOTOR1A.ChangeDutyCycle(self.__DutyCycleT)
+    def turnRight(self):
+        self.pwmMOTOR1A.ChangeDutyCycle(self.__DutyCycleA)
         self.pwmMOTOR1B.ChangeDutyCycle(self.__Stop)
-        self.pwmMOTOR2A.ChangeDutyCycle(self.__DutyCycleT)
+        self.pwmMOTOR2A.ChangeDutyCycle(self.__DutyCycleB)
         self.pwmMOTOR2B.ChangeDutyCycle(self.__Stop)
 
-    def turnRight(self):
+    def turnLeft(self):
         self.pwmMOTOR1A.ChangeDutyCycle(self.__Stop)
-        self.pwmMOTOR1B.ChangeDutyCycle(self.__DutyCycleT)
+        self.pwmMOTOR1B.ChangeDutyCycle(self.__DutyCycleA)
         self.pwmMOTOR2A.ChangeDutyCycle(self.__Stop)
-        self.pwmMOTOR2B.ChangeDutyCycle(self.__DutyCycleT)
+        self.pwmMOTOR2B.ChangeDutyCycle(self.__DutyCycleB)
 
     def stop(self):
         self.pwmMOTOR1A.ChangeDutyCycle(self.__Stop)
