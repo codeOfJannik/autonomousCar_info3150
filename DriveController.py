@@ -67,7 +67,7 @@ def driveForward():
 
 def startDriving():
     print("Start driving")
-    # print("obstacle at the front: " + str(noObstacleAtFrontForGoingForward()))
+    print(noObstacleAtFrontForGoingForward())
     if noObstacleAtFrontForGoingForward():
         driveForward()
     else:
