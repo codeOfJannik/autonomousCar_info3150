@@ -53,9 +53,7 @@ rightSensor = InfraredSensor(20)
 
 # Detect front obstacle
 def frontobstacle():
-<<<<<<< HEAD
     return frontSensor.sense()
-=======
 
     # Set trigger to False (Low)
     frontSensor.GPIO.output(FRONT_SENSOR_TRIGGER, False)
@@ -77,7 +75,6 @@ def frontobstacle():
     distance = elapsed * 34000 / 2  # distance of both directions so divide by 2
     print ("Front Distance : %.1f" % distance)
     return distance
->>>>>>> ae4a5be47e25296c3641fc4dcbfcb464a57edd5d
 
 def rightobstacle():
     return rightSensor.is_blocked_by_obstacle()
@@ -153,14 +150,11 @@ def obstacleavoiddrive():
 
 def cleargpios():
     print ("clearing GPIO")
-<<<<<<< HEAD
     frontSensor.cleanup()
     leftSensor.cleanup()
     rightSensor.cleanup()
-=======
     #frontSensor.GPIO.output(FRONT_SENSOR_TRIGGER, False)
     #frontSensor.GPIO.output(FRONT_SENSOR_ECHO, False)
->>>>>>> ae4a5be47e25296c3641fc4dcbfcb464a57edd5d
     # GPIO.output(23, False)
     # GPIO.output(24, False)
     # GPIO.output(16, False)
