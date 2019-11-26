@@ -7,7 +7,7 @@ class Motor:
     __MOTOR2B = 24
 
     __Frequency = 20
-    #change if car doesnt drive straight 
+    #change if car doesnt drive straight
     __DutyCycleA = 25
     __DutyCycleB = 25
     __DutyCycleT = 20
