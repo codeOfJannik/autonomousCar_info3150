@@ -26,6 +26,7 @@ def turnStarted():
         print("Obstacle in front, keep turning")
     print("no obstacle in front, stop turning")
     motor.stop()
+    time.sleep(2)
     startDriving()
 
 def check_sides():
@@ -53,6 +54,7 @@ def check_for_FrontObstacle():
         if not noObstacleAtFront():
             print("obstacle in front detected")
             motor.stop()
+            time.sleep(2)
             check_sides()
 
 def driveForward():
