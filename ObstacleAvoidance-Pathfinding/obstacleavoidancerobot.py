@@ -4,7 +4,7 @@ import time
 
 #Needed to import file located in different folder???
 import sys
-sys.path.insert(1, '../Library/scripts')
+sys.path.insert(1, '../../Library/scripts')
 
 from RTIMUScripts import get_heading
 from motor import Motor
@@ -12,7 +12,9 @@ from infraredSensor import InfraredSensor
 from ultrasonic import Ultrasonic
 
 motor = Motor();
-frontSensor = Ultrasonic()
+FRONT_SENSOR_TRIGGER = Ultrasonic()
+FRONT_SENSOR_TRIGGER = 19
+FRONT_SENSOR_ECHO = 26
 leftSensor = InfraredSensor(21)
 rightSensor = InfraredSensor(20)
 
@@ -52,17 +54,17 @@ rightSensor = InfraredSensor(20)
 def frontobstacle():
 
     # Set trigger to False (Low)
-    GPIO.output(frontSensor.__trig, False)
+    GPIO.output(FRONT_SENSOR_TRIGGER, False)
     # Allow module to settle
     time.sleep(0.2)
     # Send 10us pulse to trigger
-    GPIO.output(frontSensor.__trig, True)
+    GPIO.output(FRONT_SENSOR_TRIGGER, True)
     time.sleep(0.00001)
-    GPIO.output(frontSensor.__trig, False)
+    GPIO.output(FRONT_SENSOR_TRIGGER, False)
     start = time.time()
-    while GPIO.input(frontSensor.__echo) == 0:
+    while GPIO.input(FRONT_SENSOR_ECHO) == 0:
         start = time.time()
-    while GPIO.input(frontSensor.__echo) == 1:
+    while GPIO.input(FRONT_SENSOR_ECHO) == 1:
         stop = time.time()
     # Calculate pulse length
     elapsed = stop - start
@@ -146,8 +148,8 @@ def obstacleavoiddrive():
 
 def cleargpios():
     print "clearing GPIO"
-    GPIO.output(frontSensor.__trig, False)
-    GPIO.output(frontSensor.__echo, False)
+    GPIO.output(FRONT_SENSOR_TRIGGER.__trig, False)
+    GPIO.output(FRONT_SENSOR_TRIGGER.__echo, False)
     # GPIO.output(23, False)
     # GPIO.output(24, False)
     # GPIO.output(16, False)
