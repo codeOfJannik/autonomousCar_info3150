@@ -31,8 +31,8 @@ def turnDegrees(degrees):
     print("Current heading: " + str(currentHeading))
 
     if degrees < 0:
-        finalHeading = get_heading() + degrees
-        normalizeDegrees(finalHeading)
+        finalHeading = currentHeading + degrees
+        finalHeading = normalizeDegrees(finalHeading)
 
         print("Heading after turning: " + str(finalHeading))
 
@@ -45,8 +45,8 @@ def turnDegrees(degrees):
                 motor.stop()
                 break
     else:
-        finalHeading = get_heading() + degrees
-        normalizeDegrees(finalHeading)
+        finalHeading = currentHeading + degrees
+        finalHeading = normalizeDegrees(finalHeading)
 
         print("Heading after turning: " + str(finalHeading))
 
