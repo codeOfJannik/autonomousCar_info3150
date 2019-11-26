@@ -14,7 +14,7 @@ from ultrasonic import Ultrasonic
 motor = Motor();
 frontSensor = Ultrasonic();
 leftSensor = InfraredSensor(21)
-rightSensor = InfraredSensor(20)
+rightSensor = InfraredSensor(16)
 
 # # Functions for driving
 # def goforward():
@@ -86,7 +86,7 @@ def checkanddrivefront():
     while (frontobstacle() < 10 or leftobstacle()):
         motor.turnRight()
         time.sleep(1)
-    motor.forward()
+	motor.stop()
 
 
 # Check right obstacle and turn left if there is an obstacle
@@ -94,7 +94,7 @@ def checkanddriveright():
     while rightobstacle() or frontobstacle() < 10:
         motor.turnLeft()
         time.sleep(1)
-    motor.forward()
+	motor.stop()
 
 
 # Check left obstacle and turn right if there is an obstacle
@@ -102,7 +102,7 @@ def checkanddriveleft():
     while leftobstacle() or frontobstacle() < 10:
         motor.turnRight()
         time.sleep(1)
-    motor.forward()
+	motor.stop()
 
 
 # Avoid obstacles and drive forward
@@ -111,13 +111,17 @@ def obstacleavoiddrive():
     start = time.time()
     # Drive 5 minutes
     while start > time.time() - 300:  # 300 = 60 seconds * 5
+	motor.forward()
         if frontobstacle() < 10:
+ 	    print("if1")
             motor.stop()
             checkanddrivefront()
         elif rightobstacle() == True:
+	    print("if2")
             motor.stop()
             checkanddriveright()
         elif leftobstacle() == True:
+	    print("if3")
             motor.stop()
             checkanddriveleft()
     # Clear GPIOs, it will stop motors       
@@ -151,5 +155,8 @@ if __name__ == "__main__":
 try:
     main()
 except KeyboardInterrupt:
-    cleargpios()
+    del motor
+    del frontSensor
+    del leftSensor
+    del rightSensor
     print ("Stopped by User")

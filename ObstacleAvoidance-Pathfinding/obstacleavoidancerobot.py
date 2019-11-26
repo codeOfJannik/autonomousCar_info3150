@@ -107,22 +107,17 @@ def checkanddriveleft():
 
 # Avoid obstacles and drive forward
 def obstacleavoiddrive():
-    motor.forward()
-    start = time.time()
-    # Drive 5 minutes
-    while start > time.time() - 300:  # 300 = 60 seconds * 5
-        if frontobstacle() < 10:
-            motor.stop()
-            checkanddrivefront()
-        elif rightobstacle() == True:
-            motor.stop()
-            checkanddriveright()
-        elif leftobstacle() == True:
-            motor.stop()
-            checkanddriveleft()
-    # Clear GPIOs, it will stop motors       
-    cleargpios()
-
+    while frontobstacle() >= 10:
+        motor.forward();
+        if (frontobstacle() < 10)
+            while(frontobstacle() < 10 or leftobstacle())
+                motor.turnRight();
+        if leftobstacle()
+            while (frontobstacle() < 10 or leftobstacle())
+                motor.turnRight();
+        if rightobstacle()
+            while frontobstacle() < 10 or rightobstacle()
+                motor.turnLeft();
 
 def cleargpios():
     print ("clearing GPIO")
