@@ -7,8 +7,8 @@ from infraredSensor import InfraredSensor
 from ultrasonic import Ultrasonic
 
 motor = Motor()
-right_ir_sensor = InfraredSensor(12)
-left_ir_sensor = InfraredSensor(16)
+right_ir_sensor = InfraredSensor(16)
+left_ir_sensor = InfraredSensor(12)
 right_front_ir_sensor = InfraredSensor(20)
 left_front_ir_sensor = InfraredSensor(21)
 ultrasonicSensor = Ultrasonic()
