@@ -12,13 +12,10 @@ from infraredSensor import InfraredSensor
 from ultrasonic import Ultrasonic
 
 motor = Motor();
-<<<<<<< HEAD
 FRONT_SENSOR_TRIGGER = 19
 FRONT_SENSOR_ECHO = 26
 frontSensor = Ultrasonic()
-=======
 frontSensor = Ultrasonic();
->>>>>>> ae4a5be47e25296c3641fc4dcbfcb464a57edd5d
 leftSensor = InfraredSensor(21)
 rightSensor = InfraredSensor(20)
 
