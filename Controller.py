@@ -39,7 +39,7 @@ def turnDegrees(degrees):
         motor.turnLeft()
         while True:
             heading = get_heading()
-            print("Heading: " + heading)
+            print("Heading: " + str(heading))
 
             if heading < finalHeading:
                 motor.stop()
