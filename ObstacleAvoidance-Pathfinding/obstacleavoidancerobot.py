@@ -107,16 +107,16 @@ def checkanddriveleft():
 
 # Avoid obstacles and drive forward
 def obstacleavoiddrive():
-    while frontobstacle() >= 10:
+    while frontobstacle() >= 10 or not leftobstacle() or not rightobstacle():
         motor.forward();
-        if (frontobstacle() < 10)
-            while(frontobstacle() < 10 or leftobstacle())
+        if frontobstacle() < 10:
+            while frontobstacle() < 10 or leftobstacle():
                 motor.turnRight();
-        if leftobstacle()
-            while (frontobstacle() < 10 or leftobstacle())
+        if leftobstacle():
+            while frontobstacle() < 10 or leftobstacle():
                 motor.turnRight();
-        if rightobstacle()
-            while frontobstacle() < 10 or rightobstacle()
+        if rightobstacle():
+            while frontobstacle() < 10 or rightobstacle():
                 motor.turnLeft();
 
 def cleargpios():
