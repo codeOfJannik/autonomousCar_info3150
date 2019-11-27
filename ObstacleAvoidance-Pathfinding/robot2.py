@@ -20,6 +20,8 @@ rightSensor = InfraredSensor(20)
 
 components = [motor, frontSensor, leftSensor, leftFrontSensor, rightSensor, rightFrontSensor]
 
+latestValidUltrasonicDistance = 0
+
 # # Functions for driving
 # def goforward():
 #     GPIO.output(11, True)
@@ -54,9 +56,16 @@ components = [motor, frontSensor, leftSensor, leftFrontSensor, rightSensor, righ
 
 # Detect front obstacle
 def frontobstacle():
-    ultrasonicValue = frontSensor.sense()
+    ultrasonicOutput = frontSensor.sense()
+    if self.latestValidUltrasonicDistance == 0:
+        self.latestValidUltrasonicDistance = ultrasonicOutput
+        return ultrasonicOutput
+    if ultrasonicOutput - self.latestValidUltrasonicDistance > 50:
+        motor.stop()
+        ultrasonicOutput = waitForValidUltrasonicValue()
+    self.latestValidUltrasonicDistance = ultrasonicOutput
     time.sleep(.05)
-    return ultrasonicValue
+    return ultrasonicOutput
 
 def rightFrontObstacle():
     return rightFrontSensor.is_blocked_by_obstacle()
@@ -136,6 +145,13 @@ def checkanddriveleft():
         time.sleep(1)
         motor.stop()
 
+def waitForValidUltrasonicValue():
+    ultrasonicValue = frontSensor.sense()
+    while ultrasonicValue - self.latestValidUltrasonicDistance > 50:
+        print("Invalid US value, wait for valid value")
+    return ultrasonicValue
+
+
 
 # Avoid obstacles and drive forward
 def obstacleavoiddrive():
@@ -146,7 +162,7 @@ def obstacleavoiddrive():
     obstacleLeftTimer = 0
     while start > time.time() - 300:  # 300 = 60 seconds * 5
         motor.forward()
-        if frontobstacle() < 10:
+        if frontobstacle() < 15:
             motor.stop()
             checkanddrivefront()
         elif rightFrontObstacle():
