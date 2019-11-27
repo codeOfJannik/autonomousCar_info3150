@@ -54,7 +54,9 @@ components = [motor, frontSensor, leftSensor, leftFrontSensor, rightSensor, righ
 
 # Detect front obstacle
 def frontobstacle():
-    return frontSensor.sense()
+    ultrasonicValue = frontSensor.sense()
+    time.sleep(.5)
+    return ultrasonicValue
 
 def rightFrontObstacle():
     return rightFrontSensor.is_blocked_by_obstacle()
