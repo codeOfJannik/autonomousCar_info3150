@@ -8,8 +8,8 @@ class Motor:
 
     __Frequency = 20
     #change if car doesnt drive straight
-    __DutyCycleA = 24
-    __DutyCycleB = 25
+    __DutyCycleA = 25
+    __DutyCycleB = 24.5
     __DutyCycleT = 20
     __Stop = 0
 
