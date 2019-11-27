@@ -27,16 +27,17 @@ def randomLeftRight():
         wheels.turnLeft()
         print("LEFT TURN")
         return bool
-    else
+    else:
         wheels.turnRight()
         print ("RIGHT TURN")
         return bool
 
 def frontObstacle():
-    if frontSensor.sense() <= 15.0
+    if frontSensor.sense() <= 15.0:
+        time.sleep(0.01)
         print ("FRONT CLEAR")
         return True
-    else
+    else:
         print ("FRONT BLOCKED")
         return False
 
@@ -44,7 +45,7 @@ def frontRightObstacle():
     if frontRightSensor.is_blocked_by_obstacle():
         print ("FRONT RIGHT BLOCKED")
         return True
-    else
+    else:
         print ("FRONT RIGHT CLEAR")
         return False
 
@@ -52,7 +53,7 @@ def frontLeftObstacle():
     if frontLeftSensor.is_blocked_by_obstacle():
         print ("FRONT LEFT BLOCKED")
         return True
-    else
+    else:
         print ("FRONT LEFT CLEAR")
         return False
 
@@ -60,7 +61,7 @@ def backRightObstacle():
     if backRightSensor.is_blocked_by_obstacle():
         print ("BACK RIGHT BLOCKED")
         return True
-    else
+    else:
         print ("BACK RIGHT CLEAR")
         return False
 
@@ -68,7 +69,7 @@ def backLeftObstacle():
     if backLeftSensor.is_blocked_by_obstacle():
         print ("BACK LEFT BLOCKED")
         return True
-    else
+    else:
         print ("BACK LEFT CLEAR")
         return False
 
