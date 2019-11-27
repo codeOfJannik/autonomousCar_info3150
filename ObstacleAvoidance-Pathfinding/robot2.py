@@ -146,7 +146,7 @@ def checkanddriveleft():
 def waitForValidUltrasonicValue():
     ultrasonicValue = frontSensor.sense()
     while ultrasonicValue - frontSensor.latestValidUltrasonicDistance > 50:
-        print("Invalid US value, wait for valid value")
+        print(str(ultrasonicValue) > str(frontSensor.latestValidUltrasonicDistance))
     return ultrasonicValue
 
 
