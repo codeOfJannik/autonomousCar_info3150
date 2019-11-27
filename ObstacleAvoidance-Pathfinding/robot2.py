@@ -75,7 +75,7 @@ def goBackUntilSpaceToTurnRight():
         motor.stop()
     if not rightFrontObstacle() and not rightObstacle():
         motor.backward()
-        time.sleep(1)
+        time.sleep(.5)
         motor.stop()
         return
     else:
@@ -93,7 +93,7 @@ def goBackUntilSpaceToTurnLeft():
         motor.stop()
     if not leftFrontObstacle() and not leftObstacle():
         motor.backward()
-        time.sleep(1)
+        time.sleep(.5)
         motor.stop()
         return
     else:
