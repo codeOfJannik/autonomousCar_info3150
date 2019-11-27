@@ -57,13 +57,13 @@ latestValidUltrasonicDistance = 0
 # Detect front obstacle
 def frontobstacle():
     ultrasonicOutput = frontSensor.sense()
-    if self.latestValidUltrasonicDistance == 0:
-        self.latestValidUltrasonicDistance = ultrasonicOutput
+    if latestValidUltrasonicDistance == 0:
+        latestValidUltrasonicDistance = ultrasonicOutput
         return ultrasonicOutput
-    if ultrasonicOutput - self.latestValidUltrasonicDistance > 50:
+    if ultrasonicOutput - latestValidUltrasonicDistance > 50:
         motor.stop()
         ultrasonicOutput = waitForValidUltrasonicValue()
-    self.latestValidUltrasonicDistance = ultrasonicOutput
+    latestValidUltrasonicDistance = ultrasonicOutput
     time.sleep(.05)
     return ultrasonicOutput
 
@@ -147,7 +147,7 @@ def checkanddriveleft():
 
 def waitForValidUltrasonicValue():
     ultrasonicValue = frontSensor.sense()
-    while ultrasonicValue - self.latestValidUltrasonicDistance > 50:
+    while ultrasonicValue - latestValidUltrasonicDistance > 50:
         print("Invalid US value, wait for valid value")
     return ultrasonicValue
 
