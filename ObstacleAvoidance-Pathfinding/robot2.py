@@ -74,6 +74,9 @@ def goBackUntilSpaceToTurnRight():
         time.sleep(1)
         motor.stop()
     if not rightFrontObstacle() and not rightObstacle():
+        motor.backward()
+        time.sleep(1)
+        motor.stop()
         return
     else:
         while rightObstacle() or rightFrontObstacle():
@@ -89,6 +92,9 @@ def goBackUntilSpaceToTurnLeft():
         time.sleep(1)
         motor.stop()
     if not leftFrontObstacle() and not leftObstacle():
+        motor.backward()
+        time.sleep(1)
+        motor.stop()
         return
     else:
         while leftObstacle() or leftFrontObstacle():
@@ -134,20 +140,21 @@ def obstacleavoiddrive():
     motor.forward()
     start = time.time()
     # Drive 5 minutes
+    obstacleRightTimer = 0
+    obstacleLeftTimer = 0
     while start > time.time() - 300:  # 300 = 60 seconds * 5
         motor.forward()
         if frontobstacle() < 10:
-            print("if1")
             motor.stop()
             checkanddrivefront()
         elif rightFrontObstacle():
-            print("if2")
             motor.stop()
             checkanddriveright()
         elif leftFrontObstacle():
-            print("if3")
             motor.stop()
             checkanddriveleft()
+
+
     # Clear GPIOs, it will stop motors       
     cleargpios()
 
