@@ -4,8 +4,6 @@ import time
 class Ultrasonic:
     __trig = 19
     __echo = 26
-    __start = 0
-    __end = 0
 
     def __init__(self):
         gpio.setmode(gpio.BCM)
@@ -23,8 +21,8 @@ class Ultrasonic:
         time.sleep(0.00001)
         gpio.output(self.__trig, False)
 
-        while gpio.input(self.__echo) == 0: self.__start = time.time()
-        while gpio.input(self.__echo) == 1: self.__end = time.time()
+        while gpio.input(self.__echo) == 0: start = time.time()
+        while gpio.input(self.__echo) == 1: end = time.time()
 
         duration = end - start
         distance = duration * 17150
