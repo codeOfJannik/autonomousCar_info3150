@@ -11,10 +11,14 @@ from motor import Motor
 from infraredSensor import InfraredSensor
 from ultrasonic import Ultrasonic
 
-motor = Motor();
-frontSensor = Ultrasonic();
-leftSensor = InfraredSensor(21)
-rightSensor = InfraredSensor(16)
+motor = Motor()
+frontSensor = Ultrasonic()
+leftFrontSensor = InfraredSensor(21)
+rightFrontSensor = InfraredSensor(16)
+leftSensor = InfraredSensor(12)
+rightSensor = InfraredSensor(20)
+
+components = [motor, frontSensor, leftSensor, leftFrontSensor, rightSensor, rightFrontSensor]
 
 # # Functions for driving
 # def goforward():
@@ -52,76 +56,95 @@ rightSensor = InfraredSensor(16)
 def frontobstacle():
     return frontSensor.sense()
 
-def rightobstacle():
+def rightFrontObstacle():
+    return rightFrontSensor.is_blocked_by_obstacle()
+
+def leftFrontObstacle():
+    return leftFrontSensor.is_blocked_by_obstacle()
+
+def rightObstacle():
     return rightSensor.is_blocked_by_obstacle()
 
-    # # Set trigger to False (Low)
-    # GPIO.output(GPIO_TRIGGER_RIGHT, False)
-    # # Allow module to settle
-    # time.sleep(0.2)
-    # # Send 10us pulse to trigger
-    # GPIO.output(GPIO_TRIGGER_RIGHT, True)
-    # time.sleep(0.00001)
-    # GPIO.output(GPIO_TRIGGER_RIGHT, False)
-    # start = time.time()
-    # while GPIO.input(GPIO_ECHO_RIGHT) == 0:
-    #     start = time.time()
-    # while GPIO.input(GPIO_ECHO_RIGHT) == 1:
-    #     stop = time.time()
-    # # Calculate pulse length
-    # elapsed = stop - start
-    # # Distance pulse travelled in that time is time
-    # # Multiplied by the speed of sound (cm/s)
-    # distance = elapsed * 34000 / 2  # Distance of both directions so divide by 2
-    # print "Right Distance : %.1f" % distance
-    # return distance
-
-
-def leftobstacle():
+def leftObstacle():
     return leftSensor.is_blocked_by_obstacle()
+
+def goBackUntilSpaceToTurnRight():
+    while leftObstacle():
+        motor.backward()
+        time.sleep(1)
+        motor.stop()
+    if not rightFrontObstacle() and not rightObstacle():
+        return
+    else:
+        while rightObstacle() or rightFrontObstacle():
+            motor.backward()
+            time.sleep(1)
+            motor.stop()
+        if leftObstacle():
+            goBackUntilSpaceToTurnRight()
+
+def goBackUntilSpaceToTurnLeft():
+    while rightObstacle():
+        motor.backward()
+        time.sleep(1)
+        motor.stop()
+    if not leftFrontObstacle() and not leftObstacle():
+        return
+    else:
+        while leftObstacle() or leftFrontObstacle():
+            motor.backward()
+            time.sleep(1)
+            motor.stop()
+        if rightObstacle():
+            goBackUntilSpaceToTurnLeft()
 
 
 # Check front obstacle and turn right if there is an obstacle
 def checkanddrivefront():
-    while (frontobstacle() < 10 or leftobstacle()):
+    while (frontobstacle() < 15 or leftFrontObstacle()):
+        if leftObstacle():
+            goBackUntilSpaceToTurnRight()
         motor.turnRight()
         time.sleep(1)
-	motor.stop()
+        motor.stop()
 
 
 # Check right obstacle and turn left if there is an obstacle
 def checkanddriveright():
-    while rightobstacle() or frontobstacle() < 10:
+    while rightFrontObstacle() or frontobstacle() < 15:
+        if leftObstacle():
+            goBackUntilSpaceToTurnRight()
         motor.turnLeft()
         time.sleep(1)
-	motor.stop()
+        motor.stop()
 
 
 # Check left obstacle and turn right if there is an obstacle
 def checkanddriveleft():
-    while leftobstacle() or frontobstacle() < 10:
+    while leftFrontObstacle() or frontobstacle() < 15:
+        if rightObstacle():
+            goBackUntilSpaceToTurnLeft()
         motor.turnRight()
         time.sleep(1)
-	motor.stop()
+        motor.stop()
 
 
 # Avoid obstacles and drive forward
 def obstacleavoiddrive():
-    motor.forward()
     start = time.time()
     # Drive 5 minutes
     while start > time.time() - 300:  # 300 = 60 seconds * 5
-	motor.forward()
+        motor.forward()
         if frontobstacle() < 10:
- 	    print("if1")
+            print("if1")
             motor.stop()
             checkanddrivefront()
-        elif rightobstacle() == True:
-	    print("if2")
+        elif rightFrontObstacle():
+            print("if2")
             motor.stop()
             checkanddriveright()
-        elif leftobstacle() == True:
-	    print("if3")
+        elif leftFrontObstacle():
+            print("if3")
             motor.stop()
             checkanddriveleft()
     # Clear GPIOs, it will stop motors       
@@ -130,17 +153,8 @@ def obstacleavoiddrive():
 
 def cleargpios():
     print ("clearing GPIO")
-    frontSensor.cleanup()
-    leftSensor.cleanup()
-    rightSensor.cleanup()
-    #frontSensor.GPIO.output(FRONT_SENSOR_TRIGGER, False)
-    #frontSensor.GPIO.output(FRONT_SENSOR_ECHO, False)
-    # GPIO.output(23, False)
-    # GPIO.output(24, False)
-    # GPIO.output(16, False)
-    # GPIO.output(33, False)
-    # GPIO.output(38, False)
-    print ("All GPIOs CLEARED")
+    for component in components:
+        del component
 
 
 def main():
@@ -155,8 +169,4 @@ if __name__ == "__main__":
 try:
     main()
 except KeyboardInterrupt:
-    del motor
-    del frontSensor
-    del leftSensor
-    del rightSensor
-    print ("Stopped by User")
+   cleargpios()
