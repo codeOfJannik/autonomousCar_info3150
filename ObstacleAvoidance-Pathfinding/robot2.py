@@ -131,6 +131,7 @@ def checkanddriveleft():
 
 # Avoid obstacles and drive forward
 def obstacleavoiddrive():
+    motor.forward()
     start = time.time()
     # Drive 5 minutes
     while start > time.time() - 300:  # 300 = 60 seconds * 5
