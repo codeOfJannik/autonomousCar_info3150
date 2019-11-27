@@ -149,8 +149,10 @@ def waitForValidUltrasonicValue():
     while ultrasonicValue - frontSensor.latestValidUltrasonicDistance > 50:
         print(str(ultrasonicValue) + ">" + str(frontSensor.latestValidUltrasonicDistance))
         counter += 1
+        print(counter)
         if counter == 50:
             print("new value " + str(ultrasonicValue) + "seems to be true")
+            break
     return ultrasonicValue
 
 
