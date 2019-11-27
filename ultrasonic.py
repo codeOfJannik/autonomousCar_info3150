@@ -5,6 +5,9 @@ class Ultrasonic:
     __trig = 19
     __echo = 26
 
+    latestValidUltrasonicDistance = 0
+
+
     def __init__(self):
         gpio.setmode(gpio.BCM)
         gpio.setwarnings(False)
