@@ -150,7 +150,7 @@ def goBackManeuver(obstacleDirection):
         wheels.turnRight()
         time.sleep(0.5)
 
-def goAheadManeuver(obstacleDirection):
+def goAheadManeuver(turnDirection):
     # If turn direction is right, keep turning right until obstacle is cleared
     if turnDirection is "right":
         while frontObstacle() or frontLeftObstacle():
