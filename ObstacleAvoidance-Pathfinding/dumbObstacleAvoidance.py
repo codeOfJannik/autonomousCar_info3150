@@ -34,11 +34,11 @@ def randomLeftRight():
 
 def frontObstacle():
     if frontSensor.sense() <= 15.0:
-        time.sleep(0.01)
-        print ("FRONT CLEAR")
+        time.sleep(0.1)
+        print ("FRONT BLOCKED")
         return True
     else:
-        print ("FRONT BLOCKED")
+        print ("FRONT CLEAR")
         return False
 
 def frontRightObstacle():
