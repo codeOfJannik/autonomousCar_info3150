@@ -78,10 +78,14 @@ def leftObstacle():
     return leftSensor.is_blocked_by_obstacle()
 
 def goBackUntilSpaceToTurnRight():
+    startObstacleTime = time.time()
     while leftObstacle():
         motor.backward()
         time.sleep(1)
         motor.stop()
+        if time.time() - startObstacleTime > 11:
+            turnAwayFromRightBorder()
+            return
     if not rightFrontObstacle() and not rightObstacle():
         motor.backward()
         time.sleep(.5)
@@ -96,10 +100,14 @@ def goBackUntilSpaceToTurnRight():
             goBackUntilSpaceToTurnRight()
 
 def goBackUntilSpaceToTurnLeft():
+    startObstacleTime = time.time()
     while rightObstacle():
         motor.backward()
         time.sleep(1)
         motor.stop()
+        if time.time() - startObstacleTime > 11:
+            turnAwayFromRightBorder()
+            return
     if not leftFrontObstacle() and not leftObstacle():
         motor.backward()
         time.sleep(.5)
@@ -155,29 +163,90 @@ def waitForValidUltrasonicValue():
             break
     return ultrasonicValue
 
+def turnAwayFromRightBorder():
+    motor.stop()
+    while leftObstacle() or leftFrontObstacle():
+        motor.backward()
+        time.sleep(1)
+        motor.stop()
 
+    turnCounter = 10
+    while turnCounter > 0:
+        motor.turnLeft()
+        time.sleep(1/turnCounter)
+        motor.stop()
+        motor.forward()
+        time.sleep(1/turnCounter)
+        turnCounter -= 1
+
+def turnAwayFromLeftBorder():
+    motor.stop()
+    while rightObstacle() or rightFrontObstacle():
+        motor.backward()
+        time.sleep(1)
+        motor.stop()
+
+    turnCounter = 10
+    while turnCounter > 0:
+        motor.turnRight()
+        time.sleep(1 / turnCounter)
+        motor.stop()
+        motor.forward()
+        time.sleep(1 / turnCounter)
+        turnCounter -= 1
 
 # Avoid obstacles and drive forward
 def obstacleavoiddrive():
     motor.forward()
     start = time.time()
     # Drive 5 minutes
-    obstacleRightTimer = 0
-    obstacleLeftTimer = 0
+    obstacleRightStart = 0
+    obstacleLeftStart = 0
     while start > time.time() - 300:  # 300 = 60 seconds * 5
         motor.forward()
         if frontobstacle() < 15:
             motor.stop()
             checkanddrivefront()
+            obstacleRightStart = 0
+            obstacleLeftStart = 0
+            continue
         elif rightFrontObstacle():
             motor.stop()
             checkanddriveright()
+            obstacleRightStart = 0
+            obstacleLeftStart = 0
+            continue
         elif leftFrontObstacle():
             motor.stop()
             checkanddriveleft()
+            obstacleRightStart = 0
+            obstacleLeftStart = 0
+            continue
+
+        if rightObstacle():
+            if obstacleRightStart == 0:
+                obstacleRightStart = time.time()
+            elif time.time() - obstacleRightStart > 8:
+                print ("Right border")
+                turnAwayFromRightBorder()
+                obstacleRightStart = 0
+        else:
+            if not obstacleRightStart == 0:
+                obstacleRightStart = 0
+
+        if leftObstacle():
+            if obstacleLeftStart == 0:
+                obstacleLeftStart = time.time()
+            elif time.time() - obstacleLeftStart > 8:
+                print ("Left border")
+                turnAwayFromLeftBorder()
+                obstacleLeftStart = 0
+        else:
+            if not obstacleLeftStart == 0:
+                obstacleLeftStart = 0
 
 
-    # Clear GPIOs, it will stop motors       
+    # Clear GPIOs, it will stop motors
     cleargpios()
 
 
@@ -191,7 +260,7 @@ def main():
     print ("start driving: ")
     # Start obstacle avoid driving
     obstacleavoiddrive()
-    
+
 
 if __name__ == "__main__":
     main()
