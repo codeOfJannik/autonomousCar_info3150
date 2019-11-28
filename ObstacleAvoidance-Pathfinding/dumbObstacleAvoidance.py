@@ -102,7 +102,7 @@ def obstacleAvoid():
             continue
 
         if frontRightObstacle():
-            while frontRightObstacle() or frontObstacle():
+            while frontRightObstacle() or frontObstacle() or frontLeftObstacle():
                 if backRightObstacle():
                     goBackManeuver("left")
                 else:
@@ -110,7 +110,7 @@ def obstacleAvoid():
             continue
 
         if frontLeftObstacle():
-            while frontLeftObstacle() or frontObstacle():
+            while frontLeftObstacle() or frontObstacle() or frontRightObstacle():
                 if backLeftObstacle():
                     goBackManeuver("right")
                 else:
