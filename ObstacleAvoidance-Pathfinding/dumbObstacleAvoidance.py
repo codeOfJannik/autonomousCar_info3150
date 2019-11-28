@@ -118,7 +118,7 @@ def obstacleAvoid():
 def goBackTunnel(obstacleDirection):
     counter = 0
     if obstacleDirection is "right":
-        while backRightObstacle() or frontRightObstacle() and counter <= 10:
+        while (backRightObstacle() or frontRightObstacle()) and counter <= 10:
             wheels.backward()
             time.sleep(1)
             counter += 1
@@ -130,7 +130,7 @@ def goBackTunnel(obstacleDirection):
             print("STUCK ON RIGHT WALL")
 
     elif obstacleDirection is "left":
-        while backLeftObstacle() or frontLeftObstacle() and counter <= 10:
+        while (backLeftObstacle() or frontLeftObstacle()) and counter <= 10:
             wheels.backward()
             time.sleep(1)
             counter += 1
