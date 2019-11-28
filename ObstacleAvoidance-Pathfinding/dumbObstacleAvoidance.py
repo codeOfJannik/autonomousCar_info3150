@@ -89,6 +89,10 @@ def obstacleAvoid():
     while True:
         wheels.forward()
 
+        if frontObstacle() and frontLeftObstacle() and frontRightObstacle() and backLeftObstacle() and backRightObstacle():
+            goBackTunnel("stuck")
+            continue
+
         if backRightObstacle() and frontObstacle():
             goBackTunnel("right")
             continue
@@ -110,10 +114,6 @@ def obstacleAvoid():
             goBackManeuver("right")
             continue
 
-        if frontObstacle() and frontLeftObstacle() and frontRightObstacle() and backLeftObstacle() and backRightObstacle():
-            goBackTunnel("stuck")
-            continue
-
 #For going back long distances (e.g. in a  tunnel)
 def goBackTunnel(obstacleDirection):
     counter = 0
@@ -122,14 +122,21 @@ def goBackTunnel(obstacleDirection):
             wheels.backward()
             time.sleep(1)
             counter += 1
-        wheels.turnLeft()
+
+        while backRightObstacle() or frontRightObstacle():
+            wheels.turnLeft()
+            time.sleep(0.5)
+            print("STUCK ON RIGHT WALL")
 
     elif obstacleDirection is "left":
         while backLeftObstacle() or frontLeftObstacle() and counter <= 10:
             wheels.backward()
             time.sleep(1)
             counter += 1
-        wheels.turnRight()
+        while backLeftObstacle() or frontLeftObstacle():
+            wheels.turnRight()
+            time.sleep(0.5)
+            print("STUCK ON LEFT WALL")
 
     #If surrounded by both sides, reverse all the way out and turn around
     else:
