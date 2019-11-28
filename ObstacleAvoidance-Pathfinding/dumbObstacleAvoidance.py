@@ -101,27 +101,25 @@ def obstacleAvoid():
             goBackTunnel("left")
             continue
 
-        if frontRightObstacle() and frontObstacle():
+        if frontRightObstacle():
             while frontRightObstacle() or frontObstacle():
-                wheels.turnLeft()
+                if backRightObstacle():
+                    goBackManeuver("left")
+                else:
+                    wheels.turnLeft()
             continue
 
-        if frontLeftObstacle() and frontObstacle():
+        if frontLeftObstacle():
             while frontLeftObstacle() or frontObstacle():
-                wheels.turnRight()
+                if backLeftObstacle():
+                    goBackManeuver("right")
+                else:
+                    wheels.turnRight()
             continue
 
         #If obstacle ahead, randomly turn either left or right.
         if frontObstacle():
             goAheadManeuver(randomLeftRight())
-            continue
-
-        if frontLeftObstacle():
-            goBackManeuver("left")
-            continue
-
-        if frontRightObstacle():
-            goBackManeuver("right")
             continue
 
 #For going back long distances (e.g. in a  tunnel)
