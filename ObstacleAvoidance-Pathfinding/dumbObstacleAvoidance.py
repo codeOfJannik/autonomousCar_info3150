@@ -122,6 +122,7 @@ def goBackTunnel(obstacleDirection):
             wheels.backward()
             time.sleep(1)
             counter += 1
+            print(counter)
 
         while backRightObstacle() or frontRightObstacle():
             wheels.turnLeft()
@@ -133,6 +134,7 @@ def goBackTunnel(obstacleDirection):
             wheels.backward()
             time.sleep(1)
             counter += 1
+            print(counter)
         while backLeftObstacle() or frontLeftObstacle():
             wheels.turnRight()
             time.sleep(0.5)
