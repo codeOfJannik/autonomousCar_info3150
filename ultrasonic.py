@@ -15,7 +15,7 @@ class Ultrasonic:
         gpio.setup(self.__echo, gpio.IN)
         gpio.output(self.__trig, False)
 
-        print ("Waiting For Sensor")
+        print ("WAITING FOR SENSOR")
         time.sleep(2)
 
 
@@ -31,7 +31,7 @@ class Ultrasonic:
         distance = duration * 17150
 
         distance = round(distance, 2)
-        print("FRONT DISTANCE: " + distance + " CM")
+        print("FRONT DISTANCE: " + str(distance) + " CM")
         return distance
 
     def cleanup(self):
