@@ -2,9 +2,9 @@
 import RPi.GPIO as GPIO
 import time
 import random
+import sys
 
 #Needed to import file located in different folder???
-import sys
 sys.path.insert(1, '../')
 
 #from RTIMUScripts import get_heading
@@ -177,4 +177,5 @@ if __name__ == "__main__":
 try:
     main()
 except KeyboardInterrupt:
-   cleanGPIO()
+    cleanGPIO()
+    sys.exit()
