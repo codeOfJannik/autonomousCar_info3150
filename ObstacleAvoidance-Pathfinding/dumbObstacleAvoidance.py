@@ -26,11 +26,11 @@ def randomLeftRight():
     if bool is True:
         wheels.turnLeft()
         print("LEFT TURN")
-        return bool
+        return "left"
     else:
         wheels.turnRight()
         print ("RIGHT TURN")
-        return bool
+        return "right"
 
 def frontObstacle():
     if frontSensor.sense() <= 15.0:
@@ -40,6 +40,18 @@ def frontObstacle():
     else:
         print ("FRONT CLEAR")
         return False
+
+def ultrasonicDistance():
+    ultrasonicDistance = frontSensor.sense()
+    if frontSensor.latestValidUltrasonicDistance == 0:
+        frontSensor.latestValidUltrasonicDistance = ultrasonicDistance
+        return ultrasonicDistance
+    if ultrasonicDistance - frontSensor.latestValidUltrasonicDistance > 50:
+        motor.stop()
+        ultrasonicDistance = waitForValidUltrasonicValue()
+    frontSensor.latestValidUltrasonicDistance = ultrasonicDistance
+    time.sleep(.05)
+    return ultrasonicDistance
 
 def frontRightObstacle():
     if frontRightSensor.is_blocked_by_obstacle():
@@ -74,31 +86,43 @@ def backLeftObstacle():
         return False
 
 def obstacleAvoid():
+    #Drive forward until obstacle ahead.
     while True:
         wheels.forward()
+        #If obstacle ahead, randomly turn either left or right.
         if frontObstacle():
-            while frontObstacle() or frontLeftObstacle():
-                wheels.turnRight()
-                continue
+            turnDirection = randomLeftRight()
+            #If turn direction is right, keep turning right until obstacle is cleared
+            if turnDirection is "right":
+                while frontObstacle() or frontLeftObstacle():
+                    wheels.turnRight()
+                    continue
+            # If turn direction is left, keep turning left until obstacle is cleared
+            else
+                while frontObstacle() or frontRightObstacle():
+                    wheels.turnLeft()
+                    continue
+                    
         if frontLeftObstacle():
             wheels.backward()
-            time.sleep(1)
+            time.sleep(0.5)
             wheels.turnRight()
-            time.sleep(1)
+            time.sleep(0.5)
             continue
+
         if frontRightObstacle():
             wheels.backward()
             time.sleep(1)
             wheels.turnLeft()
             time.sleep(1)
             continue
-        if (backRightObstacle() and backLeftObstacle()) and frontObstacle():
-            while not backRightObstacle() and not backLeftObstacle():
-                wheels.backward()
-            wheels.backward()
-            time.sleep(1)
-            wheels.turnLeft()
-            time.sleep(1)
+
+        if backRightObstacle() and frontObstacle():
+            goBack("right")
+            continue
+
+        if backLeftObstacle() and frontLeftObstacle():
+            goBack("left")
             continue
 
 def goBackUntilSpaceToTurnRight():
@@ -115,6 +139,17 @@ def goBackUntilSpaceToTurnRight():
             wheels.stop()
         if backLeftObstacle():
             goBackUntilSpaceToTurnRight()
+
+def goBack(obstacleDirection):
+    if obstacleDirection is "right":
+        while backRightObstacle() or frontRightObstacle():
+            wheels.backward()
+            time.sleep(1)
+    else:
+        while backLeftObstacle() or frontLeftObstacle():
+            wheels.backward()
+            time.sleep(1)
+
 
 def goBackUntilSpaceToTurnLeft():
     while backRightObstacle():
