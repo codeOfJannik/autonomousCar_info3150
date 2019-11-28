@@ -22,15 +22,16 @@ backRightSensor = InfraredSensor(20)
 components = [wheels, frontSensor, backLeftSensor, frontLeftSensor, backRightSensor, frontRightSensor]
 
 def randomLeftRight():
-    bool = bool(random.getrandbits(1))
-    if bool is True:
-        wheels.turnLeft()
-        print("LEFT TURN")
-        return "left"
-    else:
+    if bool(random.getrandbits(1)) is True:
         wheels.turnRight()
+        time.sleep(0.5)
         print ("RIGHT TURN")
         return "right"
+    else:
+        wheels.turnLeft()
+        time.sleep(0.5)
+        print("LEFT TURN")
+        return "left"
 
 def frontObstacle():
     if frontSensor.sense() <= 15.0:
@@ -91,133 +92,73 @@ def obstacleAvoid():
         wheels.forward()
         #If obstacle ahead, randomly turn either left or right.
         if frontObstacle():
-            turnDirection = randomLeftRight()
-            #If turn direction is right, keep turning right until obstacle is cleared
-            if turnDirection is "right":
-                while frontObstacle() or frontLeftObstacle():
-                    wheels.turnRight()
-                    continue
-            # If turn direction is left, keep turning left until obstacle is cleared
-            else
-                while frontObstacle() or frontRightObstacle():
-                    wheels.turnLeft()
-                    continue
-                    
+            goAheadManeuver(randomLeftRight())
+            continue
+
         if frontLeftObstacle():
-            wheels.backward()
-            time.sleep(0.5)
-            wheels.turnRight()
-            time.sleep(0.5)
+            goBackManeuver("left")
             continue
 
         if frontRightObstacle():
-            wheels.backward()
-            time.sleep(1)
-            wheels.turnLeft()
-            time.sleep(1)
+            goBackManeuver("right")
             continue
 
         if backRightObstacle() and frontObstacle():
-            goBack("right")
+            goBackTunnel("right")
             continue
 
         if backLeftObstacle() and frontLeftObstacle():
-            goBack("left")
+            goBackTunnel("left")
             continue
 
-def goBackUntilSpaceToTurnRight():
-    while backLeftObstacle():
-        wheels.backward()
-        time.sleep(1)
-        wheels.stop()
-    if not frontRightObstacle() and not backRightObstacle():
-        return
-    else:
-        while backRightObstacle() or frontRightObstacle():
-            wheels.backward()
-            time.sleep(1)
+        if frontObstacle() and frontLeftObstacle() and frontRightObstacle() and backLeftObstacle() and backRightObstacle():
             wheels.stop()
-        if backLeftObstacle():
-            goBackUntilSpaceToTurnRight()
+            continue
 
-def goBack(obstacleDirection):
+#For going back long distances (e.g. in a  tunnel)
+def goBackTunnel(obstacleDirection):
     if obstacleDirection is "right":
         while backRightObstacle() or frontRightObstacle():
             wheels.backward()
             time.sleep(1)
-    else:
+    elif obstacleDirection is "left":
         while backLeftObstacle() or frontLeftObstacle():
             wheels.backward()
             time.sleep(1)
 
-
-def goBackUntilSpaceToTurnLeft():
-    while backRightObstacle():
-        wheels.backward()
-        time.sleep(1)
-        wheels.stop()
-    if not frontLeftObstacle() and not backLeftObstacle():
-        return
+    #If surrounded by both sides, reverse all the way out and turn around
     else:
-        while backLeftObstacle() or frontLeftObstacle():
+        while backLeftObstacle() or backRightObstacle():
             wheels.backward()
             time.sleep(1)
-            wheels.stop()
-        if backRightObstacle():
-            goBackUntilSpaceToTurnLeft()
+        if randomLeftRight() is "right":
+            wheels.turnRight()
+            time.sleep(5)
+        else:
+            wheels.turnLeft()
+            time.sleep(5)
 
+#For going back a short distance
+def goBackManeuver(obstacleDirection):
+    wheels.backward()
+    time.sleep(0.5)
 
-# Check front obstacle and turn right if there is an obstacle
-def checkanddrivefront():
-    while (frontObstacle() < 15 or frontLeftObstacle()):
-        if backLeftObstacle():
-            goBackUntilSpaceToTurnRight()
-        wheels.turnRight()
-        time.sleep(1)
-        wheels.stop()
-
-
-# Check right obstacle and turn left if there is an obstacle
-def checkanddriveright():
-    while frontRightObstacle() or frontObstacle() < 15:
-        if backLeftObstacle():
-            goBackUntilSpaceToTurnRight()
+    if obstacleDirection is "right":
         wheels.turnLeft()
-        time.sleep(1)
-        wheels.stop()
-
-
-# Check left obstacle and turn right if there is an obstacle
-def checkanddriveleft():
-    while frontLeftObstacle() or frontObstacle() < 15:
-        if backRightObstacle():
-            goBackUntilSpaceToTurnLeft()
+        time.sleep(0.5)
+    else:
         wheels.turnRight()
-        time.sleep(1)
-        wheels.stop()
+        time.sleep(0.5)
 
-
-# Avoid obstacles and drive forward
-def obstacleavoiddrive():
-    wheels.forward()
-    start = time.time()
-    # Drive 5 minutes
-    while start > time.time() - 300:  # 300 = 60 seconds * 5
-        wheels.forward()
-        if frontObstacle() < 10:
-            print("if1")
-            wheels.stop()
-            checkanddrivefront()
-        elif frontRightObstacle():
-            print("if2")
-            wheels.stop()
-            checkanddriveright()
-        elif frontLeftObstacle():
-            print("if3")
-            wheels.stop()
-            checkanddriveleft()
-    # Clear GPIOs, it will stop motors
-    cleanGPIO()
+def goAheadManeuver(obstacleDirection):
+    # If turn direction is right, keep turning right until obstacle is cleared
+    if turnDirection is "right":
+        while frontObstacle() or frontLeftObstacle():
+            wheels.turnRight()
+    # If turn direction is left, keep turning left until obstacle is cleared
+    else:
+        while frontObstacle() or frontRightObstacle():
+            wheels.turnLeft()
 
 
 def cleanGPIO():
