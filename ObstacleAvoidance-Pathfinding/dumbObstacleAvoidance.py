@@ -123,7 +123,7 @@ def goBackTunnel(obstacleDirection):
             time.sleep(1)
             counter += 1
         wheels.turnLeft()
-        
+
     elif obstacleDirection is "left":
         while backLeftObstacle() or frontLeftObstacle() and counter <= 10:
             wheels.backward()
@@ -148,7 +148,7 @@ def goBackManeuver(obstacleDirection):
     wheels.backward()
     time.sleep(0.5)
 
-    if obstacleDirection is "right" and :
+    if obstacleDirection is "right":
         wheels.turnLeft()
         time.sleep(0.5)
     else:
