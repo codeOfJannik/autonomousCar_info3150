@@ -31,7 +31,7 @@ class Ultrasonic:
         distance = duration * 17150
 
         distance = round(distance, 2)
-        print(distance)
+        print("FRONT DISTANCE: " + distance + " CM")
         return distance
 
     def cleanup(self):

@@ -30,35 +30,35 @@ class Motor:
         self.pwmMOTOR2B.start(self.__Stop)
 
     def forward(self):
-        print("Start driving forward")
+        print("GO FORWARD")
         self.pwmMOTOR1A.ChangeDutyCycle(self.__DutyCycleA)
         self.pwmMOTOR1B.ChangeDutyCycle(self.__Stop)
         self.pwmMOTOR2A.ChangeDutyCycle(self.__Stop)
         self.pwmMOTOR2B.ChangeDutyCycle(self.__DutyCycleB)
 
     def backward(self):
-        print("Start driving backward")
+        print("GO BACK")
         self.pwmMOTOR1A.ChangeDutyCycle(self.__Stop)
         self.pwmMOTOR1B.ChangeDutyCycle(self.__DutyCycleA)
         self.pwmMOTOR2A.ChangeDutyCycle(self.__DutyCycleB)
         self.pwmMOTOR2B.ChangeDutyCycle(self.__Stop)
 
     def turnLeft(self):
-        print("Start turning left")
+        print("TURN LEFT")
         self.pwmMOTOR1A.ChangeDutyCycle(self.__DutyCycleT)
         self.pwmMOTOR1B.ChangeDutyCycle(self.__Stop)
         self.pwmMOTOR2A.ChangeDutyCycle(self.__DutyCycleT)
         self.pwmMOTOR2B.ChangeDutyCycle(self.__Stop)
 
     def turnRight(self):
-        print("Start turning right")
+        print("TURN RIGHT")
         self.pwmMOTOR1A.ChangeDutyCycle(self.__Stop)
         self.pwmMOTOR1B.ChangeDutyCycle(self.__DutyCycleT)
         self.pwmMOTOR2A.ChangeDutyCycle(self.__Stop)
         self.pwmMOTOR2B.ChangeDutyCycle(self.__DutyCycleT)
 
     def stop(self):
-        print("Motors stopping")
+        print("STOP")
         self.pwmMOTOR1A.ChangeDutyCycle(self.__Stop)
         self.pwmMOTOR1B.ChangeDutyCycle(self.__Stop)
         self.pwmMOTOR2A.ChangeDutyCycle(self.__Stop)

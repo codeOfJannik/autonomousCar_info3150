@@ -25,12 +25,10 @@ def randomLeftRight():
     if bool(random.getrandbits(1)) is True:
         wheels.turnRight()
         time.sleep(0.5)
-        print ("RIGHT TURN")
         return "right"
     else:
         wheels.turnLeft()
         time.sleep(0.5)
-        print("LEFT TURN")
         return "left"
 
 def frontObstacle():
