@@ -122,11 +122,14 @@ def goBackTunnel(obstacleDirection):
             wheels.backward()
             time.sleep(1)
             counter += 1
+        wheels.turnLeft()
+        
     elif obstacleDirection is "left":
         while backLeftObstacle() or frontLeftObstacle() and counter <= 10:
             wheels.backward()
             time.sleep(1)
             counter += 1
+        wheels.turnRight()
 
     #If surrounded by both sides, reverse all the way out and turn around
     else:
