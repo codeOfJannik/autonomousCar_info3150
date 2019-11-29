@@ -4,10 +4,6 @@ import time
 import random
 import sys
 
-#Needed to import file located in different folder???
-sys.path.insert(1, '../')
-
-#from RTIMUScripts import get_heading
 from motor import Motor
 from infraredSensor import InfraredSensor
 from ultrasonic import Ultrasonic
