@@ -1,6 +1,7 @@
 from ultrasonic import Ultrasonic
 import time
-
+import sys
+sys.path.insert(1, '../')
 
 sensor = Ultrasonic()
 

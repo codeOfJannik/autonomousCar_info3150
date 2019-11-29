@@ -1,6 +1,8 @@
 from infraredSensor import InfraredSensor
 import RPi.GPIO as gpio
 import time
+import sys
+sys.path.insert(1, '../')
 
 irSensorPinNumbers = [12, 16, 20, 21]
 sensors = []

@@ -1,0 +1,18 @@
+How to run.
+ From motor.py
+    - change GPIO pins from line 4 - 7
+ From ultrasonic.py
+    - change GPIO pins from line 5 - 6
+ From naiveObstacleAvoidance.py
+    - change GPIO pins from line 13 - 16
+
+Run CMD: python naiveObstacleAvoidance.py
+
+
+
+To text individual parts
+  head to autonomousCar_info3150\tests
+  run CMD:
+      python irSensorTest.py
+      python testMotor.py
+      python testUltrasonic.py

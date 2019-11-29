@@ -1,5 +1,7 @@
 from motor import Motor
 import time
+import sys
+sys.path.insert(1, '../')
 
 motor = Motor()
 
